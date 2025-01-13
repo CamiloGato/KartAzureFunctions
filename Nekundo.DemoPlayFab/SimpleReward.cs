@@ -26,7 +26,7 @@ public class SimpleReward(ILogger<SimpleReward> logger)
     {
         logger.LogError("C# HTTP trigger function processed a request.");
         string body = await new StreamReader(req.Body).ReadToEndAsync();
-        FunctionExecutionContext? executionContext = JsonConvert.DeserializeObject<FunctionExecutionContext>(body);
+        FunctionExecutionContext<dynamic>? executionContext = JsonConvert.DeserializeObject<FunctionExecutionContext<dynamic>>(body);
         
         if (executionContext == null)
         {
@@ -48,10 +48,21 @@ public class SimpleReward(ILogger<SimpleReward> logger)
         
         PlayFabEconomyInstanceAPI economyApi = new PlayFabEconomyInstanceAPI(apiSettings, authenticationContext);
         PlayFabServerInstanceAPI serverInstanceApi = new PlayFabServerInstanceAPI(apiSettings, authenticationContext);
+
+        string overrideLabel;
         
+        try
+        {
+            overrideLabel = executionContext.FunctionArgument.ServerLabel;
+        }
+        catch
+        {
+            return new BadRequestObjectResult("Invalid request body");
+        }
+
         GetTitleDataRequest titleDataRequest = new GetTitleDataRequest()
         {
-            Keys = ["Reward"]
+            OverrideLabel = overrideLabel
         };
         
         PlayFabResult<GetTitleDataResult>? titleDataResult = await serverInstanceApi.GetTitleDataAsync(titleDataRequest);
