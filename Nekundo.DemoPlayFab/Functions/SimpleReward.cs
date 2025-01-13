@@ -1,7 +1,7 @@
-﻿using Microsoft.Azure.Functions.Worker;
-using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Azure.Functions.Worker;
+using Microsoft.Extensions.Logging;
 using Nekundo.DemoPlayFab.Mappers;
 using Nekundo.DemoPlayFab.Models;
 using Newtonsoft.Json;
@@ -9,7 +9,7 @@ using PlayFab;
 using PlayFab.EconomyModels;
 using PlayFab.ServerModels;
 
-namespace Nekundo.DemoPlayFab;
+namespace Nekundo.DemoPlayFab.Functions;
 
 public class SimpleReward(ILogger<SimpleReward> logger)
 {

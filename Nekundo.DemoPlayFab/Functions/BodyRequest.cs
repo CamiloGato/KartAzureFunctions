@@ -1,9 +1,9 @@
-﻿using Microsoft.Azure.Functions.Worker;
-using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Azure.Functions.Worker;
+using Microsoft.Extensions.Logging;
 
-namespace Nekundo.DemoPlayFab;
+namespace Nekundo.DemoPlayFab.Functions;
 
 public class BodyRequest(ILogger<BodyRequest> logger)
 {
